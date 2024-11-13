@@ -1,0 +1,291 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .user-main {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .events-section {
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (min-width: 768px) {
+            .user-main {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+
+            .events-section {
+                grid-column: span 1;
+            }
+        }
+        .user-navigation {
+            background-color: #333;
+            border-bottom: 2px solid #555;
+            padding: 10px 20px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .search-form {
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            margin-right: 20px;
+        }
+
+        .search-form input[type="text"] {
+            padding: 5px 10px;
+            border: 1px solid #555;
+            border-radius: 4px;
+            background-color: #444;
+            color: #fff;
+        }
+
+        .search-form button {
+            padding: 5px 15px;
+            border: 1px solid #555;
+            background-color: #666;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .search-form button:hover {
+            background-color: #777;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .navigation-buttons a {
+            padding: 8px 15px;
+            border: 1px solid #555;
+            background-color: #444;
+            color: #fff;
+            border-radius: 4px;
+            text-decoration: none;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .navigation-buttons a:hover {
+            background-color: #555;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table thead {
+            background-color: #003366;
+            color: #ffffff;
+        }
+
+        table thead th {
+            padding: 10px;
+            text-align: left;
+        }
+
+        table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        table tbody tr:nth-child(odd) {
+            background-color: #ffffff;
+        }
+
+        table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        table tfoot {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+<!-- Header -->
+<header class="admin-header">
+    <div class="header-left">
+        <h1>User Dashboard</h1>
+    </div>
+    <div class="header-right">
+        <a href="/inbox"><i class="fa fa-inbox" aria-hidden="true"></i></a>
+        <button><a href="/">Logout</a></button>
+    </div>
+</header>
+
+<div class="user-navigation" style="display: flex; justify-content: space-between; align-items: center;">
+    <!-- Search Form -->
+    <form action="/user/search" method="POST" class="search-form" style="margin-right: auto;">
+        <input type="text" name="searchQuery" value="<%= searchQuery || '' %>" placeholder="Search events, organizers, locations..." required>
+        <button type="submit">Search</button>
+    </form>
+
+    <div class="navigation-buttons" style="display: flex; gap: 10px;">
+        <a href="/user/my-events" class="my-events-button">My Events</a>
+        <a href="/user/add-interests" class="add-interests-button">Add Interests</a>
+    </div>
+</div>
+
+<div class="user-container">
+
+
+    <main class="user-main">
+        <section class="events-section">
+            <h2>Random Events</h2>
+            <% if (randomEvents && randomEvents.length > 0) { %>
+                <ul class="events-list">
+                    <% randomEvents.forEach(event => { %>
+                        <li class="event-item">
+                            <h3><%= event.name %></h3>
+                            <p><%= (event.date + ' at ' + event.time).slice(0, 16) %></p>
+                            <p>Location: <%= event.location_name %></p>
+                            <p>Category: <%= event.category_name %></p>
+                            <form action="/user/events/<%= event.id %>/register" method="POST">
+                                <button type="submit" class="sign-in-button">Sign In</button>
+                            </form>
+                        </li>
+                    <% }); %>
+                </ul>
+            <% } else { %>
+                <p>No random events available at this time.</p>
+            <% } %>
+        </section>
+
+        <section class="events-section">
+            <h2>Recommended Events</h2>
+            <% if (recommendedEvents && recommendedEvents.length > 0) { %>
+                <ul class="events-list">
+                    <% recommendedEvents.forEach(event => { %>
+                        <li class="event-item">
+                            <h3><%= event.name %></h3>
+                            <p><%= (event.date + ' at ' + event.time).slice(0, 16) %></p>
+                            <p>Location: <%= event.location_name %></p>
+                            <p>Category: <%= event.category_name %></p>
+                            <form action="/user/events/<%= event.id %>/register" method="POST">
+                                <button type="submit" class="sign-in-button">Sign In</button>
+                            </form>
+                        </li>
+                    <% }); %>
+                </ul>
+            <% } else { %>
+                <p>No recommended events available at this time.</p>
+            <% } %>
+        </section>
+
+        <section class="events-section">
+            <h2>Most Popular Events</h2>
+            <% if (popularEvents && popularEvents.length > 0) { %>
+                <ul class="events-list">
+                    <% popularEvents.forEach(event => { %>
+                        <li class="event-item">
+                            <h3><%= event.name %></h3>
+                            <p><%= (event.date + ' at ' + event.time).slice(0, 16) %></p>
+                            <p>Location: <%= event.location_name %></p>
+                            <p>Category: <%= event.category_name %></p>
+                            <form action="/user/events/<%= event.id %>/register" method="POST">
+                                <button type="submit" class="sign-in-button">Sign In</button>
+                            </form>
+                        </li>
+                    <% }); %>
+                </ul>
+            <% } else { %>
+                <p>No popular events available at this time.</p>
+            <% } %>
+        </section>
+
+    </main>
+    <section class="events-section">
+        <h2>Active Events</h2>
+        <% if (activeEvents && activeEvents.length > 0) { %>
+            <table border="1">
+                <thead>
+                <tr>
+                    <th>Event Name</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Location</th>
+                    <th>Category</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% activeEvents.forEach(event => { %>
+                    <tr>
+                        <td><%= event.name %></td>
+                        <td><%= (event.date + ' at ' + event.time).slice(0, 16) %></td>
+                        <td><%= event.time %></td>
+                        <td><%= event.location_name %></td>
+                        <td><%= event.category_name %></td>
+                        <td>
+                            <form action="/user/events/<%= event.id %>/register" method="POST">
+                                <button action="/user/events/<%= event.id %>/register" method="POST" type="submit" class="sign-in-button">Sign In</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }); %>
+                </tbody>
+            </table>
+        <% } else { %>
+            <p>No active events available at this time.</p>
+        <% } %>
+    </section>
+
+    <section class="events-section">
+        <h2>Past Events</h2>
+        <% if (pastEvents && pastEvents.length > 0) { %>
+            <table border="1">
+                <thead>
+                <tr>
+                    <th>Event Name</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Location</th>
+                    <th>Category</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% pastEvents.forEach(event => { %>
+                    <tr>
+                        <td><%= event.name %></td>
+                        <td><%= (event.date + ' at ' + event.time).slice(0, 16) %></td>
+                        <td><%= event.time %></td>
+                        <td><%= event.location_name %></td>
+                        <td><%= event.category_name %></td>
+                    </tr>
+                <% }); %>
+                </tbody>
+            </table>
+        <% } else { %>
+            <p>No past events available at this time.</p>
+        <% } %>
+    </section>
+
+
+</div>
+
+
+</body>
+</html>
+
+

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Interests</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+<header class="admin-header">
+    <div class="header-left">
+        <h1>User Dashboard</h1>
+    </div>
+    <div class="header-right">
+        <button><a href="/user">Return</a></button>
+        <button><a href="/logout">Logout</a></button>
+    </div>
+</header>
+
+<div class="user-container">
+    <main class="user-main">
+        <h2>Add Interests</h2>
+
+        <form action="/user/add-interests" method="POST">
+            <label for="category">Category:</label>
+            <select id="category" name="interest" required>
+                <% categories.forEach(category => { %>
+                    <option value="<%= category.name %>"><%= category.name %></option>
+                <% }) %>
+            </select>
+            <button type="submit">Add Interest</button>
+        </form>
+
+        <h3>Current Interests</h3>
+        <% if (interests && interests.length > 0) { %>
+            <ul>
+                <% interests.forEach(interest => { %>
+                    <li>
+                        <%= interest %>
+                        <form action="/user/interests/delete" method="POST" style="display:inline;">
+                            <input type="hidden" name="interest" value="<%= interest %>">
+                            <button type="submit" class="delete-button">Delete</button>
+                        </form>
+                    </li>
+                <% }) %>
+            </ul>
+        <% } else { %>
+            <p>No interests to display.</p>
+        <% } %>
+    </main>
+</div>
+</body>
+</html>
+

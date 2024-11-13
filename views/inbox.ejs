@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inbox</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+<header class="admin-header">
+    <div class="header-left">Messages</div>
+    <div class="header-right">
+        <div class="header-right-container">
+            <a href="/">Log Out</a>
+        </div>
+    </div>
+</header>
+
+<main>
+    <section>
+        <h2>Send a Message</h2>
+        <form action="/inbox/send" method="post">
+            <div>
+                <label for="receiverId">Recipient:</label>
+                <select id="receiverId" name="receiverId" required>
+                    <% users.forEach(user => { %>
+                        <option value="<%= user.id %>"><%= user.username %></option>
+                    <% }) %>
+                </select>
+            </div>
+            <div>
+                <label for="content">Message:</label>
+                <textarea id="content" name="content" rows="4" required></textarea>
+            </div>
+            <input type="hidden" name="senderId" value="<%= userId %>">
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+
+    <section class="sent-messages">
+        <h2>Sent Messages</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>To User</th>
+                <th>Content</th>
+                <th>Sent At</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% if (sentMessages.length > 0) { %>
+                <% sentMessages.forEach(message => { %>
+                    <tr>
+                        <td><%= message.receiver_username %></td>
+                        <td><%= message.content %></td>
+                        <td><%= new Date(message.sent_at).toLocaleString() %></td>
+                    </tr>
+                <% }); %>
+            <% } else { %>
+                <tr>
+                    <td colspan="3">No sent messages.</td>
+                </tr>
+            <% } %>
+            </tbody>
+        </table>
+    </section>
+
+    <section class="received-messages">
+        <h2>Received Messages</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>From User</th>
+                <th>Content</th>
+                <th>Received At</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% if (receivedMessages.length > 0) { %>
+                <% receivedMessages.forEach(message => { %>
+                    <tr>
+                        <td><%= message.sender_username %></td>
+                        <td><%= message.content %></td>
+                        <td><%= new Date(message.sent_at).toLocaleString() %></td>
+                    </tr>
+                <% }); %>
+            <% } else { %>
+                <tr>
+                    <td colspan="3">No received messages.</td>
+                </tr>
+            <% } %>
+            </tbody>
+        </table>
+    </section>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="/javascripts/admin.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table thead {
+            background-color: #003366;
+            color: #ffffff;
+        }
+
+        table thead th {
+            padding: 10px;
+            text-align: left;
+        }
+
+        table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        table tbody tr:nth-child(odd) {
+            background-color: #ffffff;
+        }
+
+        /* Table cell styles */
+        table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        table tfoot {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+<div class="admin-container">
+    <header class="admin-header">
+        <div class="header-left">Admin Dashboard</div>
+        <div class="header-right">
+            <div class="header-right-container">
+                <a href="/inbox"><i class="fa fa-inbox" aria-hidden="true"></i></a>
+                <a href="/admin/settings"><i class="fa fa-gear"></i></a>
+                <a href="/">Log Out</a>
+            </div>
+        </div>
+    </header>
+    <aside class="admin-sidebar">
+        <button onclick="showAddUserForm()">Add User</button>
+        <button onclick="showAllUsers()">See All Users</button>
+        <button onclick="showStatistics()">Statistics</button>
+        <button onclick="showLookupData()">Manage Lookup Data</button>
+        <button onclick="viewAllEvents()">View All Events</button>
+        <button onclick="viewRecentRegistrations()">Recent Registrations</button>
+        <button onclick="viewReviews()">Best and Worst Reviews</button>
+    </aside>
+    <main class="admin-main">
+        <div id="mainContent">
+            <div id="chatWindow" style="display: none;">
+                <div id="messages"></div>
+                <input id="messageInput" type="text" placeholder="Type a message..." />
+                <button id="sendMessage">Send</button>
+            </div>
+            <div class="chart-grid">
+                <div id="statistics" class="content-section" style="display: none;">
+                    <h2>Statistics</h2>
+                    <table border="1">
+                        <thead>
+                        <tr>
+                            <th>Total Users</th>
+                            <th>Total Organizers</th>
+                            <th>Total Events</th>
+                            <th>Total Registrations</th>
+                        </tr>
+                        </thead>
+                        <tbody id="stats-table">
+                        </tbody>
+                    </table>
+
+                    <div class="chart-grid">
+                        <div class="chart-container">
+                            <h3>Number of Events Per Month</h3>
+                            <canvas id="eventsPerMonthChart"></canvas>
+                        </div>
+
+                        <div class="chart-container">
+                            <h3>User vs Organizer Count</h3>
+                            <canvas id="userVsOrganizerChart"></canvas>
+                        </div>
+
+                        <div class="chart-container">
+                            <h3>Top Rated Events</h3>
+                            <canvas id="topRatedEventsChart"></canvas>
+                        </div>
+
+                        <div class="chart-container">
+                            <h3>Events with Highest Registrations</h3>
+                            <canvas id="topRegisteredEventsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+</html>
+

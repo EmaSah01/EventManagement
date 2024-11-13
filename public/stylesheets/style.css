@@ -1,0 +1,257 @@
+/* stylesheets/style.css */
+
+/* General Styles */
+body {
+  background-color: #f0f8ff; /* Light blue background */
+  font-family: Arial, sans-serif;
+
+}
+/* Form Container */
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  flex-direction: column;
+}
+
+form {
+  background-color: #ffffff; /* White background for the form */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 80%; /* Adjust width to be larger in the container */
+  max-width: 600px; /* Set a maximum width */
+}
+
+/* Form Elements */
+form h1 {
+  color: #1e90ff; /* Dodger blue for headings */
+  text-align: center;
+}
+
+label {
+  color: #1e90ff; /* Dodger blue for labels */
+  display: block;
+  margin-top: 10px;
+}
+
+input, select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  padding: 8px 15px; /* Adjusted padding to match the navigation buttons */
+  border: 1px solid #555; /* Added border to match the navigation buttons */
+  background-color: #444; /* Dark gray background similar to navigation buttons */
+  color: #fff; /* White text color */
+  border-radius: 4px; /* Slightly rounded corners */
+  text-decoration: none; /* Remove underline from any links within buttons */
+  text-align: center; /* Center text inside the button */
+  transition: background-color 0.3s ease; /* Smooth transition for background color on hover */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+button:hover {
+  background-color: #555; /* Lighter gray on hover */
+}
+
+button a {
+  display: block; /* Ensure the link inside the button takes up the full button area */
+  text-decoration: none; /* Remove underline from links */
+  color: inherit; /* Inherit the color from the button */
+  margin-right: 10px;
+}
+
+button:hover a {
+  text-decoration: none; /* Remove underline from links */
+}
+
+/* Grid Container for Admin Dashboard */
+.admin-container {
+  display: grid;
+  grid-template-columns: 200px 1fr; /* Sidebar width set to 200px, adjust as needed */
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+        "sidebar header header"
+        "sidebar main main";
+  height: 100vh;
+  background-color: #f0f8ff;
+}
+
+.organizer-container {
+  display: grid;
+  grid-template-columns: 200px 1fr; /* Sidebar width set to 200px, adjust as needed */
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+        "header header"
+        "main main";
+  height: 100vh;
+  background-color: #f0f8ff;
+}
+
+/* Header */
+.admin-header {
+  grid-area: header;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff; /* White background for header */
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid #ddd; /* Add a border to separate from the main content */
+}
+
+.organizer-header {
+  grid-area: header;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff; /* White background for header */
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid #ddd; /* Add a border to separate from the main content */
+}
+
+/* Sidebar */
+.admin-sidebar {
+  grid-area: sidebar;
+  background-color: #ffffff; /* White background for sidebar */
+  padding: 10px;
+  border-right: 1px solid #ddd;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 200px; /* Fixed width for the sidebar */
+  box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+}
+
+/* Sidebar Buttons */
+.admin-sidebar button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  background-color: #1e90ff; /* Blue background for buttons */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.admin-sidebar button:hover {
+  background-color: #1c86ee; /* Darker blue on hover */
+}
+
+/* Main Content */
+.admin-main {
+  grid-area: main;
+  padding: 20px;
+  background-color: #ffffff; /* White background for main content */
+  margin-left: 20px; /* Ensure a 20px margin to the left of the main content */
+  margin-top: 20px; /* Ensure a 20px margin below the header */
+}
+
+.organizer-main {
+  grid-area: main;
+  padding: 20px;
+  background-color: #ffffff; /* White background for main content */
+  margin-left: 20px; /* Ensure a 20px margin to the left of the main content */
+  margin-top: 20px; /* Ensure a 20px margin below the header */
+}
+
+/* Header Styles */
+.header-left {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+.header-right-container {
+  display: flex;
+  align-items: center;
+}
+
+.header-right-container a {
+  margin-left: 15px; /* Adjust spacing as needed */
+  text-decoration: none;
+  color: inherit; /* Inherit color from parent element */
+}
+
+.header-right a:hover {
+  text-decoration: underline;
+}
+
+#statistics .content-section {
+  flex: 1; /* Take up available space in the main content area */
+  width: 100%; /* Full width of the parent container */
+  padding: 20px; /* Add padding inside the section */
+  background-color: #f9f9f9; /* Light background for the statistics section */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+}
+
+
+/* Chart Container */
+.chart-container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.chart-container canvas {
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+/* Table header styles */
+table thead {
+  background-color: #003366; /* Dark blue header background */
+  color: #ffffff; /* White text color */
+}
+
+table thead th {
+  padding: 10px;
+  text-align: left;
+}
+
+/* Table row styles */
+table tbody tr:nth-child(even) {
+  background-color: #f2f2f2; /* Light gray for even rows */
+}
+
+table tbody tr:nth-child(odd) {
+  background-color: #ffffff; /* White for odd rows */
+}
+
+/* Table cell styles */
+table td {
+  padding: 10px;
+  border: 1px solid #ddd; /* Light gray border */
+}
+
+/* Table footer styles (if needed) */
+table tfoot {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}

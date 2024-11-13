@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Event</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+<div class="organizer-container">
+    <header class="admin-header">
+        <div class="header-left">Edit Event</div>
+        <div class="header-right">
+            <div class="header-right-container">
+                <a href="/settings"><i class="fa fa-gear"></i></a>
+                <a href="/">Log Out</a>
+            </div>
+        </div>
+    </header>
+    <main class="admin-main">
+        <section class="content-section">
+            <form id="editEventForm" action="/organizer/edit/<%= event.id %>" method="POST">
+                <input type="text" id="eventName" name="name" value="<%= event.name %>" required />
+                <input type="date" id="eventDate" name="date" value="<%= event.date %>" required />
+                <input type="time" id="eventTime" name="time" value="<%= event.time %>" required />
+
+                <!-- Dropdowns for categories and locations with pre-selected values -->
+                <select id="eventLocation" name="location_id" required>
+                    <% locations.forEach(location => { %>
+                        <option value="<%= location.id %>" <%= location.id == event.location_id ? 'selected' : '' %>>
+                            <%= location.name %>
+                        </option>
+                    <% }); %>
+                </select>
+
+                <select id="eventCategory" name="category_id" required>
+                    <% categories.forEach(category => { %>
+                        <option value="<%= category.id %>" <%= category.id == event.category_id ? 'selected' : '' %>>
+                            <%= category.name %>
+                        </option>
+                    <% }); %>
+                </select>
+
+                <textarea id="eventDescription" name="description"><%= event.description %></textarea>
+                <input type="number" id="eventTicketPrice" name="ticket_price" value="<%= event.ticket_price %>" />
+                <button type="submit">Save Changes</button>
+            </form>
+        </section>
+    </main>
+</div>
+</body>
+</html>
