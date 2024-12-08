@@ -1,5 +1,3 @@
-﻿# ProjectManagement
-
 # Event Management Application  
 
 ## Overview  
