@@ -1,6 +1,6 @@
 # Event Management Application  
 
-## Overview  
+## Overview
 The **Event Management Application** is designed to help organizers create and manage events, as well as enable users to search for and register for various events. The application is tailored for different types of events, such as conferences, concerts, workshops, sports events, and more.  
 
 The platform consists of multiple modules and supports three user roles:  
